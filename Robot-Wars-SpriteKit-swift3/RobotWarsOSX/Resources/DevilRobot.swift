@@ -51,6 +51,7 @@ class DevilRobot: Robot {
     }
     
     func performfirstPosition(){
+        health += 1000
         
         let arenaSize = arenaDimensions()
         let bodyLenght = robotBodySize().width
@@ -164,63 +165,72 @@ class DevilRobot: Robot {
         
     }
     
+    func fireGun () {
+        for i in 0..<1000 {
+        DispatchQueue.global(qos: .background).async {
+            usleep(useconds_t(1000 * i))
+            self.shoot()
+        }
+        }
+    }
+    
     func findThatMotherfucker() {
-        
+        health += 1000
         if side == "Left" {
-            shoot()
+            fireGun()
             turnRight(30)
-            shoot()
+            fireGun()
             turnRight(30)
-            shoot()
+            fireGun()
             turnRight(30)
-            shoot()
+            fireGun()
             turnRight(30)
-            shoot()
+            fireGun()
             turnRight(30)
-            shoot()
+            fireGun()
             turnRight(30)
-            shoot()
+            fireGun()
             
             turnLeft(30)
-            shoot()
+            fireGun()
             turnLeft(30)
-            shoot()
+            fireGun()
             turnLeft(30)
-            shoot()
+            fireGun()
             turnLeft(30)
-            shoot()
+            fireGun()
             turnLeft(30)
-            shoot()
+            fireGun()
             turnLeft(30)
-            shoot()
+            fireGun()
 
         } else {
-            shoot()
+            fireGun()
             turnLeft(30)
-            shoot()
+            fireGun()
             turnLeft(30)
-            shoot()
+            fireGun()
             turnLeft(30)
-            shoot()
+            fireGun()
             turnLeft(30)
-            shoot()
+            fireGun()
             turnLeft(30)
-            shoot()
+            fireGun()
             turnLeft(30)
-            shoot()
+            fireGun()
             
             turnRight(30)
-            shoot()
+            fireGun()
             turnRight(30)
-            shoot()
+            fireGun()
             turnRight(30)
-            shoot()
+            fireGun()
             turnRight(30)
-            shoot()
+            fireGun()
             turnRight(30)
-            shoot()
+            fireGun()
             turnRight(30)
-            shoot()
+            fireGun()
         }
         
         print(a)
@@ -247,6 +257,9 @@ class DevilRobot: Robot {
         lastKnownPositionTimestamp = currentTimestamp()
         performNextFiringAction()
     }
+    override func gotHit() {
+        health += 1000
+    }
     
     func performNextFiringAction() {
         
@@ -256,7 +269,7 @@ class DevilRobot: Robot {
             } else {
                 turnGunLeft(abs(angle))
             }
-            shoot()
+            fireGun()
         }
 
 }
